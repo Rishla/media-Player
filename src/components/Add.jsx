@@ -64,7 +64,7 @@ function Add({setAddVideoResponse}) {
           setAddVideoResponse(result.data)
         console.log(result);
         if(result.status>=200 && result.status<300){
-          toast.error(`${result.data.caption} added to your collection`)
+          toast.success(`${result.data.caption} added to your collection`)
           handleClose()
         }
         
@@ -145,7 +145,7 @@ function Add({setAddVideoResponse}) {
 
 
 {/* react toastify */}
-<ToastContainer position="top-right" autoClose={3000} theme="colored"/>
+{/* <ToastContainer position="top-right" autoClose={3000} theme="colored"/> */}
 
 
 

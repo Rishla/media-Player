@@ -8,7 +8,7 @@ import { deleteVideo, savehHistory } from '../service/allAPI';
 
 
 
-function VideoCard({displayData,setDeleteResponse}) {
+function VideoCard({displayData,setDeleteResponse,insideCategory}) {
 
   const [show, setShow] = useState(false);
 
@@ -59,14 +59,30 @@ function VideoCard({displayData,setDeleteResponse}) {
 
   }
 
+
+  const dragstarted=(e, videoId) =>{
+    console.log(videoId);
+    console.log(`dragging started  with id ${videoId}`);
+
+    // for getting the id of video that we drop
+    e.dataTransfer.setData("videoId", videoId)
+    
+  }
+
   return (
     <>
-     <Card className='mb-4' >
+     <Card className='mb-4' draggable={true} onDragStart={(e)=>dragstarted(e,displayData?.id)}>
       <Card.Img onClick={handleShow}  style={{height:"180px"}} variant="top" src={displayData.imageUrl} />
       <Card.Body className='d-flex align-items-center justify-content-between '>
 
         <h5>{displayData.caption}</h5>
-        <button onClick={()=>handleRemoveVideo(displayData?.id)} className='btn'> <i class="fa-solid fa-trash" style={{color:"red"}}></i></button>
+
+        {
+          !insideCategory&&
+          <button onClick={()=>handleRemoveVideo(displayData?.id)} className='btn'> <i class="fa-solid fa-trash" style={{color:"red"}}></i></button>
+
+        }
+
         
 
       </Card.Body>

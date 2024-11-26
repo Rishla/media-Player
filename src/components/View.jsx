@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
  import VideoCard from "./VideoCard"
 import {Col,Row } from 'react-bootstrap'
-import { getAllVideo } from '../service/allAPI'
+import { addVideo, getAllVideo, getSingleCategory, updateCategory } from '../service/allAPI'
 
-function View(addVideoResponse) {
+function View({addVideoResponse,deleteVideoCategoryResponse,setDeleteVideoViewResponse}) {
 
   const [allVideos,setAllVideos]=useState([])
   const [deleteRespose,setDeleteResponse]=useState("")
@@ -14,7 +14,7 @@ useEffect(() => {
   getVideo()
   
 
-}, [addVideoResponse,deleteRespose])
+}, [addVideoResponse,deleteRespose,deleteVideoCategoryResponse])
 
 console.log(allVideos);
 
@@ -36,6 +36,44 @@ const getVideo=async()=>{
   
 }
 
+
+// function for onDragOver(its an event btw the darg and drop)
+const dragOverView=(e)=>{
+  e.preventDefault()
+}
+
+
+// function for onDrop
+const videoDroppedCategory=async(e)=>{
+
+  const {videoDetails,CategoryId}=JSON.parse(e.dataTransfer.getData("dataShare"))
+  console.log(videoDetails,CategoryId);
+
+  // for getting the category details
+  try {
+    const {data}=await getSingleCategory(CategoryId)
+    console.log(data);
+
+    const updatedCategoryVideoList=data.allVideos.filter(item=>item.id!=videoDetails.id)
+    console.log(updatedCategoryVideoList);
+
+    const{id,categoryName}=data
+    const categoryResult=await updateCategory(id,{id,categoryName,allVideos:updatedCategoryVideoList})
+    setDeleteVideoViewResponse(categoryResult.data)
+    
+    await addVideo(videoDetails)
+    getVideo()
+    
+    
+  } catch (err) {
+    console.log(err);
+    
+    
+  }
+
+}
+
+
   return (
     <>
 
@@ -43,7 +81,7 @@ const getVideo=async()=>{
     // checking that is there any video to display
     allVideos.length>0 ?
 
-     <Row className="border border-3 p-3">
+     <Row droppable={true} onDragOver={(e)=>dragOverView(e)} onDrop={(e)=>videoDroppedCategory(e)} className="border border-3 p-3">
       {
         
 // optional chaining operator(?)

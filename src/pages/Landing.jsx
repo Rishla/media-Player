@@ -4,7 +4,8 @@ import LandingImage from '../assets/gif.gif'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import settings from '../assets/setting.jpg'
-import category from '../assets/category.jpg'
+import category from "../assets/category.jpeg"
+import hist from"../assets/hist.jpeg"
 
 
 
@@ -55,11 +56,11 @@ function Landing() {
         <div className='col-lg-4'>
           {/* card */}
         <Card style={{ width: '20rem' }} className='p-3'>
-      <Card.Img variant="top" src={settings} />
+      <Card.Img variant="top" src={category} />
       <Card.Body>
-        <Card.Title>Managing Video</Card.Title>
+        <Card.Title>Catagorize Videos</Card.Title>
         <Card.Text>
-          User can upload, view and remove the video
+        Users can categorize the video by drag and drop feature
         </Card.Text>
       </Card.Body>
     </Card>
@@ -71,11 +72,11 @@ function Landing() {
         <div className='col-lg-4'>
           {/* card */}
         <Card style={{ width: '20rem' }} className='p-3'>
-      <Card.Img variant="top" src={settings} />
+      <Card.Img variant="top" src={hist} />
       <Card.Body>
-        <Card.Title>Managing Video</Card.Title>
+        <Card.Title>Managing History</Card.Title>
         <Card.Text>
-          User can upload, view and remove the video
+        Users can manage the watch history of all video
         </Card.Text>
       </Card.Body>
     </Card>

@@ -50,3 +50,28 @@ export const getAllCategory=async()=>{
     return await commonAPI("GET",`${SERVER_URL}/category`,"")
     
 }
+
+// api call for deleting the category
+export const deleteCategory=async(categoryId)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/category/${categoryId}`,{})
+    
+}
+
+// api call for get a single video(when we dropping)
+export const getSingleVideo=async(videoId)=>{
+    return await commonAPI("GET",`${SERVER_URL}/allvideos/${videoId}`,"")
+    
+}
+
+// api call for updating category
+export const updateCategory=async(categoryId,categoryDetails)=>{
+    return await commonAPI("put",`${SERVER_URL}/category/${categoryId}`,categoryDetails)
+    
+}
+
+// api  call for getting single category
+export const getSingleCategory=async(categoryId)=>{
+    return await commonAPI("GET",`${SERVER_URL}/category/${categoryId}`,"")
+    
+}
+
